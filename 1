@@ -1,0 +1,88 @@
+using System;
+using System.Security.Cryptography;
+
+namespace ConsoleApp12312
+{
+class Program
+{
+static void Main(string[] args)
+{
+int fieldWidth = 8;
+int heightField = 6;
+int indentMargin = 3;
+int indentLeft = 2;
+int heightCell = 4;
+int fielCell = 6;
+
+int selectedCellX = 3;
+int selectedCellY = 3;
+
+ConclusionTablet(fieldWidth, heightField, indentMargin, indentLeft, heightCell, fielCell, selectedCellX, selectedCellY);
+}
+
+
+static void ConclusionTablet(int fieldWidth, int heightField, int indentMargin, int indentLeft, int heightCell, int fielCell, int selectedCellX, int selectedCellY)
+{
+for (int a = 0; a < indentMargin; a++)
+Console.WriteLine("");
+
+WriteBoxLine(indentLeft, fieldWidth, fielCell, '╔', '═', '╗', '╦');
+for (int numHeightField = 0; numHeightField < heightField; numHeightField++ )
+{
+for (int c = 0; c < heightCell; c++)
+{
+WriteBoxLine(indentLeft, fieldWidth, fielCell, '║', ' ',selectedCellX, selectedCellY, numHeightField);
+}
+if (numHeightField == heightCell - 1) break;
+WriteBoxLine(indentLeft, fieldWidth, fielCell, '╟', '═', '╣', '╬');
+}
+WriteBoxLine(indentLeft, fieldWidth, fielCell, '╚', '═', '╝', '╩');
+}
+
+
+
+static void WriteBoxLine(int indentLeft, int fieldWidth, int fielCell, char oneChar, char twoChar, char freeChar, char fourChar)
+{
+for (int spaceLeft = 0; spaceLeft < indentLeft; spaceLeft++)
+Console.Write(" ");
+
+Console.Write(oneChar);
+
+for (int a = 0; a < fieldWidth; a++)
+{
+for (int b = 0; b < fielCell; b++)
+{
+Console.Write(twoChar);
+
+}
+if (a == fieldWidth-1) break;
+Console.Write(fourChar);
+}
+Console.Write(freeChar);
+Console.WriteLine("");
+}
+
+
+static void WriteBoxLine(int indentLeft, int fieldWidth, int fielCell, char oneChar, char twoChar, int selectedCellX, int selectedCellY, int numHeightField)
+{
+for (int spaceLeft = 0; spaceLeft < indentLeft; spaceLeft++)
+Console.Write(' ');
+
+Console.Write(oneChar);
+for (int numFieldWidth = 0; numFieldWidth < fieldWidth; numFieldWidth++)
+{
+for (int b = 0; b < fielCell; b++)
+{
+if (numHeightField == selectedCellX - 1)
+if (numFieldWidth == selectedCellY-1) { Console.BackgroundColor = ConsoleColor.Red; }
+
+Console.Write(twoChar);
+
+if (numFieldWidth == selectedCellX-1) { Console.ResetColor(); }
+}
+Console.Write(oneChar);
+}
+Console.WriteLine("");
+}
+}
+}
